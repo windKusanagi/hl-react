@@ -30,223 +30,214 @@ export const WEB3S = [
 export const HTLC = {
   abi: [
     {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'bytes32',
-          name: 'txId',
-          type: 'bytes32',
-        },
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'sender',
-          type: 'address',
-        },
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'receiver',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'bytes32',
-          name: 'hashlock',
-          type: 'bytes32',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'timelock',
-          type: 'uint256',
-        },
-      ],
-      name: 'LogNewTransaction',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'bytes32',
-          name: 'txId',
-          type: 'bytes32',
-        },
-        {
-          indexed: false,
-          internalType: 'address',
-          name: 'sender',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'balance',
-          type: 'uint256',
-        },
-      ],
-      name: 'LogRefund',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'bytes32',
-          name: 'txId',
-          type: 'bytes32',
-        },
-        {
-          indexed: false,
-          internalType: 'address',
-          name: 'sender',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'balance',
-          type: 'uint256',
-        },
-      ],
-      name: 'LogWithdraw',
-      type: 'event',
-    },
-    {
+      constant: false,
       inputs: [
         {
           internalType: 'bytes32',
-          name: '_txId',
+          name: '_transactionID',
           type: 'bytes32',
-        },
-      ],
-      name: 'getTransaction',
-      outputs: [
-        {
-          internalType: 'address',
-          name: 'sender',
-          type: 'address',
-        },
-        {
-          internalType: 'address',
-          name: 'receiver',
-          type: 'address',
-        },
-        {
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256',
         },
         {
           internalType: 'bytes32',
-          name: 'hashlock',
-          type: 'bytes32',
-        },
-        {
-          internalType: 'uint256',
-          name: 'timelock',
-          type: 'uint256',
-        },
-        {
-          internalType: 'bool',
-          name: 'withdrawn',
-          type: 'bool',
-        },
-        {
-          internalType: 'bool',
-          name: 'refunded',
-          type: 'bool',
-        },
-        {
-          internalType: 'bytes32',
-          name: 'key',
+          name: '_secret',
           type: 'bytes32',
         },
       ],
-      stateMutability: 'view',
+      name: 'claimFunds',
+      outputs: [],
+      payable: false,
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
+      anonymous: false,
       inputs: [
         {
-          internalType: 'address payable',
-          name: '_receiver',
+          indexed: true,
+          internalType: 'bytes32',
+          name: 'transactionID',
+          type: 'bytes32',
+        },
+      ],
+      name: 'FundsClaimed',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'bytes32',
+          name: 'transactionID',
+          type: 'bytes32',
+        },
+      ],
+      name: 'FundsSentBack',
+      type: 'event',
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_beneficiary',
           type: 'address',
         },
         {
           internalType: 'bytes32',
-          name: '_hashlock',
+          name: '_secretHash',
           type: 'bytes32',
         },
         {
           internalType: 'uint256',
-          name: '_timelock',
+          name: '_duration',
           type: 'uint256',
         },
+        {
+          internalType: 'address',
+          name: '_tokenContractAddress',
+          type: 'address',
+        },
       ],
-      name: 'newTransaction',
+      name: 'initiateTransfer',
       outputs: [
         {
           internalType: 'bytes32',
-          name: 'txId',
+          name: 'transactionID',
           type: 'bytes32',
         },
       ],
+      payable: true,
       stateMutability: 'payable',
       type: 'function',
     },
     {
+      constant: false,
       inputs: [
         {
           internalType: 'bytes32',
-          name: '_txId',
+          name: '_transactionID',
           type: 'bytes32',
         },
       ],
-      name: 'refund',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool',
-        },
-      ],
+      name: 'sendBackFunds',
+      outputs: [],
+      payable: false,
       stateMutability: 'nonpayable',
       type: 'function',
     },
     {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'bytes32',
+          name: 'transactionID',
+          type: 'bytes32',
+        },
+        {
+          indexed: false,
+          internalType: 'address',
+          name: 'initiator',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'address',
+          name: 'beneficiary',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'value',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'bytes32',
+          name: 'secretHash',
+          type: 'bytes32',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'expiryTime',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'address',
+          name: 'tokenContract',
+          type: 'address',
+        },
+      ],
+      name: 'TransferInitiated',
+      type: 'event',
+    },
+    {
+      constant: true,
       inputs: [
         {
           internalType: 'bytes32',
-          name: '_txId',
+          name: '',
           type: 'bytes32',
+        },
+      ],
+      name: 'pendingTransfers',
+      outputs: [
+        {
+          internalType: 'address',
+          name: 'initiator',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'beneficiary',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'value',
+          type: 'uint256',
         },
         {
           internalType: 'bytes32',
-          name: '_key',
+          name: 'secretHash',
           type: 'bytes32',
         },
-      ],
-      name: 'withdraw',
-      outputs: [
+        {
+          internalType: 'uint256',
+          name: 'expiryTime',
+          type: 'uint256',
+        },
         {
           internalType: 'bool',
-          name: '',
+          name: 'isFundsClaimed',
           type: 'bool',
         },
+        {
+          internalType: 'bool',
+          name: 'isFundsSentBack',
+          type: 'bool',
+        },
+        {
+          internalType: 'bytes32',
+          name: 'preimage',
+          type: 'bytes32',
+        },
+        {
+          internalType: 'address',
+          name: 'tokenContractAddress',
+          type: 'address',
+        },
       ],
-      stateMutability: 'nonpayable',
+      payable: false,
+      stateMutability: 'view',
       type: 'function',
     },
   ],
 };
+
+const w3 = new Web3();
+export const OneOther = w3.utils.toWei(w3.utils.toBN(1), 'ether');

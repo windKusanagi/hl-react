@@ -32,6 +32,10 @@ export const GetTrans: React.FC = () => {
   };
 
   useEffect(() => {
+    resetRes();
+  }, []);
+
+  useEffect(() => {
     setCaller(null);
   }, [htlcAddr]);
 
@@ -49,6 +53,8 @@ export const GetTrans: React.FC = () => {
           key: idx,
         }))}
       />
+      <br />
+      <p> txId: </p>
       <Input value={txId} onChange={e => setTxId(e.target.value)}></Input>
 
       <Button onClick={() => getTransaction(caller, txId)}> get transaction</Button>

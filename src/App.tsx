@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import type Web3 from 'web3';
 import { globalCtx, WEB3S } from './context';
@@ -52,6 +52,12 @@ export const App = () => {
       })),
     [],
   );
+
+  useEffect(() => {
+    web3.eth.getAccounts().then(res => {
+      setAccounts(res || []);
+    });
+  }, []);
 
   return (
     <globalCtx.Provider
